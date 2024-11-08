@@ -62,7 +62,7 @@ import DOMPurify from "dompurify";
 
 const md = new MarkdownIt();
 const showHTML = ref(true);
-const apiUrl = ref("");
+const apiUrl = ref("https://reqres.in/api/users?page=2");
 const jsonData = ref("");
 const statusMessage = ref("");
 const renderingOption = ref("html"); // or 'markdown'
