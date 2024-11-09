@@ -18,14 +18,7 @@
 
 		<!-- Status Message -->
 		<p class=" py-3 my-3">Status Message: {{ statusMessage }}</p>
-
-		<div class="grid grid-cols-12 gap-4 h-full">
-			<textarea
-				v-model="jsonData"
-				class="h-full border-[0.5px] p-6 col-span-5 shadow-xl"
-				placeholder="Enter or edit JSON data"
-			></textarea>
-			<div class="flex flex-col gap-6 col-span-2">
+		<div class="flex flex-col gap-6 w-1/2 mx-auto my-4">
 				<button
 					v-if="!showHTML"
 					class="border-2 border-gray-800 p-2 hover:bg-gray-50"
@@ -41,14 +34,21 @@
 					Convert to Markup >>
 				</button>
 			</div>
-			<div class="col-span-5 border-[0.5px] p-6 shadow-xl">
+		<div class="grid grid-cols-12 gap-4 h-full">
+			<textarea
+				v-model="jsonData"
+				class="h-full border-[0.5px] p-6 col-span-6 shadow-xl"
+				placeholder="Enter or edit JSON data"
+			></textarea>
+			
+			<div class="col-span-6 border-[0.5px] p-6 shadow-xl">
 				<div class="" v-if="showHTML">
 					<h2 class="text-xl font-bold mb-2 border-b-2">HTML VIEW</h2>
 					<div  v-html="renderedContent"></div>
 				</div>
-				<div class="" v-else>
+				<div class="overflow-hidden" v-else>
 					<h2 class="text-xl font-bold mb-2 border-b-2">MARKDOWN VIEW</h2>
-					<pre class="overflow-auto text-sm">{{ markdownContent }}</pre>
+					<VueMarkdown :source="markdownContent" />
 				</div>
 			</div>
 		</div>
@@ -59,7 +59,7 @@
 import { ref } from "vue";
 import MarkdownIt from "markdown-it";
 import DOMPurify from "dompurify";
-
+import VueMarkdown from 'vue-markdown-render'
 const md = new MarkdownIt();
 const showHTML = ref(true);
 const apiUrl = ref("https://reqres.in/api/users?page=2");
@@ -177,7 +177,6 @@ const convertToMarkdown = () => {
 const jsonToMarkdown = (data, level = 0) => {
 	let markdown = "";
 	const indent = "  ".repeat(level);
-
 	if (Array.isArray(data)) {
 		// Handle arrays
 		data.forEach((item) => {
@@ -192,7 +191,6 @@ const jsonToMarkdown = (data, level = 0) => {
 		// Handle primitive values
 		markdown += `${String(data)}`;
 	}
-
 	return markdown;
 };
 
