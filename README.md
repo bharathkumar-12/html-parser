@@ -1,6 +1,7 @@
 # Nuxt.js and Vue.js Project: JSON to HTML/Markdown Converter
 
 This project is a **Nuxt.js** and **Vue.js** application designed to consume JSON data from an API, process it, and convert it into meaningful HTML or Markdown content for display. The goal of this project is to demonstrate the ability to handle API responses dynamically and render the data effectively on a web interface.
+<img width="1459" alt="Screenshot 2024-11-09 at 3 44 52 PM" src="https://github.com/user-attachments/assets/ccbc8596-7ba0-4b97-b576-8d6b64a4f469">
 
 ---
 
