@@ -1,15 +1,14 @@
 <template>
 	<div class="max-w-[1440px] px-[64px] py-[32px] h-screen">
-
-		<div class="grid grid-cols-2 bg-blue-50">
+		<div class="grid grid-cols-12">
 			<input
 				v-model="apiUrl"
-				class="p-2 border-2"
+				class="p-2 border-2 rounded-l-xl col-span-10"
 				type="text"
 				placeholder="https://reqres.in/api/users?page=2"
 			/>
 			<button
-				class="px-6 py-2 bg-gray-700 text-white hover:bg-gray-800"
+				class="px-6 py-2 col-span-2 rounded-r-xl bg-gray-700 text-white hover:bg-gray-800"
 				@click="fetchData"
 			>
 				GET
@@ -17,40 +16,79 @@
 		</div>
 
 		<!-- Status Message -->
-		<p class=" py-3 my-3">Status Message: {{ statusMessage }}</p>
-		<div class="flex flex-col gap-6 w-1/2 mx-auto my-4">
+		<p v-if="statusMessage" class="px-2">
+			{{ statusMessage }}
+		</p>
+		<div class="grid grid-cols-6 gap-6 mx-auto my-4">
+			<div class="col-span-3"></div>
+			<div class="col-span-3 grid grid-cols-2 gap-4">
 				<button
-					v-if="!showHTML"
-					class="border-2 border-gray-800 p-2 hover:bg-gray-50"
+					class="py-2 px-4 bg-yellow-200 hover:bg-yellow-300 transition-all ease-in-out delay-200 rounded-[8px]"
 					@click="convertToHtml(jsonData)"
 				>
-					Convert to HTML >>
+					Convert to HTML
+					<font-awesome-icon class="px-2" :icon="['fas', 'angles-down']" />
 				</button>
 				<button
-					v-else
-					class="border-2 border-gray-800 p-2 hover:bg-gray-50"
+					class="py-2 px-4 bg-yellow-200 hover:bg-yellow-300 transition-all ease-in-out delay-200 rounded-[8px]"
 					@click="convertToMarkdown()"
 				>
-					Convert to Markup >>
+					Convert to Markup
+					<font-awesome-icon class="px-2" :icon="['fas', 'angles-down']" />
 				</button>
 			</div>
-		<div class="grid grid-cols-12 gap-4 h-full">
-			<textarea
-				v-model="jsonData"
-				class="h-full border-[0.5px] p-6 col-span-6 shadow-xl"
-				placeholder="Enter or edit JSON data"
-			></textarea>
-			
-			<div class="col-span-6 border-[0.5px] p-6 shadow-xl">
-				<div class="" v-if="showHTML">
-					<h2 class="text-xl font-bold mb-2 border-b-2">HTML VIEW</h2>
-					<div  v-html="renderedContent"></div>
+		</div>
+		<div class="grid grid-cols-2 gap-4 h-full">
+			<ViewBox>
+				<template #heading>
+					JSON Editor
+				</template>
+				<template #content>
+					<textarea
+						v-model="jsonData"
+						class="h-full w-full bg-slate-800 rounded-b-xl text-white p-4 shadow-xl"
+						placeholder="Paste & Edit JSON data"
+					></textarea>
+				</template>
+			</ViewBox>
+			<div class="  flex relative flex-col border-[0.5px] rounded-xl overflow-scroll">
+				<div class="grid gap-1 sticky top-0 rounded-t-xl items-center bg-blue-50 grid-cols-2 px-4 py-2 border-b-[1px] w-full">
+					<div class="max-w-[90px] flex flex-row gap-1">
+						<div class="h-[15px] w-[15px] bg-red-400 rounded-[50%]"></div>
+						<div class="h-[15px] w-[15px] bg-yellow-400 rounded-[50%]"></div>
+						<div class="h-[15px] w-[15px] bg-green-400 rounded-[50%]"></div>
+					</div>
+					<div class="text-center font-semibold">HTML / Markup Viewer</div>
 				</div>
-				<div class="overflow-hidden" v-else>
-					<h2 class="text-xl font-bold mb-2 border-b-2">MARKDOWN VIEW</h2>
-					<VueMarkdown :source="markdownContent" />
-				</div>
+				<VueMarkdown v-if="!showHTML" class="p-4" :source="markdownContent" />
+				<div v-else class="p-2" v-html="renderedContent"></div>
 			</div>
+
+			<!-- <div  class="bg-slate-800 text-light rounded-2xl">
+				<div class="bg-blue-50 rounded-t-xl flex flex-row items-center">
+					<div
+						class="grid gap-1 grid-cols-3 max-w-[90px] px-4 py-2 border-b-[1px] w-full"
+					>
+						<div class="h-[15px] w-[15px] bg-red-400 rounded-[50%]"></div>
+						<div class="h-[15px] w-[15px] bg-yellow-400 rounded-[50%]"></div>
+						<div class="h-[15px] w-[15px] bg-green-400 rounded-[50%]"></div>
+					</div>
+					<div class="font-semibold text-center text-base">
+						HTML Preview (9)
+					</div>
+				</div>
+				
+			</div>
+			<ViewBox  :content="renderedContent">
+				<template #heading>
+					Markdown Preview
+				</template>
+				<template #content>
+					<div class="p-4 bg-slate-800 rounded-b-xl text-white min-h-full">
+						
+					</div>
+				</template>
+			</ViewBox> -->
 		</div>
 	</div>
 </template>
@@ -59,7 +97,7 @@
 import { ref } from "vue";
 import MarkdownIt from "markdown-it";
 import DOMPurify from "dompurify";
-import VueMarkdown from 'vue-markdown-render'
+import VueMarkdown from "vue-markdown-render";
 const md = new MarkdownIt();
 const showHTML = ref(true);
 const apiUrl = ref("https://reqres.in/api/users?page=2");
@@ -111,15 +149,12 @@ const jsonToHtml = (data, level = 0) => {
 	} else if (typeof data === "object" && data !== null) {
 		// Handle objects
 		return `
-      <div class="${indentClass} mb-2">
+      <div class="${indentClass} p-4">
         ${Object.entries(data)
 					.map(
 						([key, value]) => `
           <div class="mb-1">
-            <strong class="text-gray-700">${key}:</strong> ${jsonToHtml(
-							value,
-							level + 1
-						)}
+            <strong class="">${key}:</strong> ${jsonToHtml(value, level + 1)}
           </div>
         `
 					)
