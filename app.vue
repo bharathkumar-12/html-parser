@@ -1,5 +1,6 @@
 <template>
-	<div class="max-w-[1440px] px-[64px] py-[32px] h-screen">
+	<div class="max-w-[1440px] px-[64px] py-[32px] grid bg-gray-50">
+		<p class="py-2">This project fetches data from an API, processes the response, and converts it into a structured HTML or Markdown (MD) format. It ensures that raw API data is transformed into a readable and meaningful format for display or documentation purposes.</p>
 		<div class="grid grid-cols-12">
 			<input
 				v-model="apiUrl"
@@ -38,7 +39,7 @@
 				</button>
 			</div>
 		</div>
-		<div class="grid grid-cols-2 gap-4 h-full">
+		<div class="grid grid-cols-2 gap-4 h-full bg-white">
 			<ViewBox>
 				<template #heading>
 					JSON Editor
@@ -242,6 +243,8 @@ const fetchData = async () => {
 		statusMessage.value = error.message;
 	}
 };
+
+fetchData()
 watch([jsonData, renderingOption], () => {
 	if (isValidJson(jsonData.value)) {
 		const data = JSON.parse(jsonData.value);
