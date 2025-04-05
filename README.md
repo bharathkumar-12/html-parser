@@ -31,19 +31,18 @@ This project is a **Nuxt.js** and **Vue.js** application designed to consume JSO
 ## 🖥️ How It Works
 
 1. **API Call**:
+
    - Uses Axios to fetch data from a pre-configured API endpoint.
    - Handles errors gracefully with fallback messages.
 
 2. **Data Processing**:
+
    - Extracts relevant fields from the JSON response.
    - Converts data into a structure suitable for rendering as HTML or Markdown.
 
 3. **Rendering**:
    - Displays the processed content dynamically on the webpage.
    - Uses Vue.js components to encapsulate the rendering logic.
-
-
-
 
 ## Setup
 

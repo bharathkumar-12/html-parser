@@ -1,28 +1,19 @@
 <template>
-	<div class="min-h-screen bg-gray-50">
-		<!-- GitHub-like Header -->
-		<header class="bg-gray-900 border-b border-gray-800">
+	<div class="min-h-screen bg-[#f5f5f7]">
+		<!-- Apple-like Header -->
+		<header class="bg-white border-b border-gray-200 backdrop-blur-lg bg-opacity-80 sticky top-0 z-50">
 			<div class="max-w-[1440px] mx-auto px-8">
 				<div class="flex items-center justify-between h-16">
 					<div class="flex items-center gap-8">
 						<div class="flex items-center gap-2">
-							<font-awesome-icon :icon="['fas', 'code']" class="text-white text-xl" />
-							<span class="text-white font-semibold text-lg">JSON Converter</span>
+							<font-awesome-icon :icon="['fas', 'code']" class="text-gray-900 text-xl" />
+							<span class="text-gray-900 font-medium text-lg">JSON Converter</span>
 						</div>
 						<nav class="hidden md:flex items-center gap-6">
-							<a href="#" class="text-gray-300 hover:text-white transition-colors">Overview</a>
-							<a href="#" class="text-gray-300 hover:text-white transition-colors">Documentation</a>
-							<a href="#" class="text-gray-300 hover:text-white transition-colors">Examples</a>
+							<a href="#" class="text-gray-600 hover:text-gray-900 transition-colors text-sm">Overview</a>
+							<a href="#" class="text-gray-600 hover:text-gray-900 transition-colors text-sm">Documentation</a>
+							<a href="#" class="text-gray-600 hover:text-gray-900 transition-colors text-sm">Examples</a>
 						</nav>
-					</div>
-					<div class="flex items-center gap-4">
-						<button class="px-4 py-2 text-sm text-gray-300 hover:text-white transition-colors">
-							<font-awesome-icon :icon="['fas', 'bell']" />
-						</button>
-						<button class="flex items-center gap-2 px-3 py-2 text-sm text-gray-300 hover:text-white transition-colors">
-							<font-awesome-icon :icon="['fas', 'user']" />
-							<span>Profile</span>
-						</button>
 					</div>
 				</div>
 			</div>
@@ -30,18 +21,18 @@
 
 		<!-- Main Content -->
 		<main class="max-w-[1440px] mx-auto px-8 py-12">
-			<div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6 mb-8">
-				<div class="flex items-center justify-between mb-6">
+			<div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-8 mb-8">
+				<div class="flex items-center justify-between mb-8">
 					<div>
-						<h1 class="text-2xl font-semibold text-gray-900">JSON to HTML/Markdown Converter</h1>
-						<p class="text-gray-600 mt-1">Transform your JSON data into beautifully formatted HTML or Markdown</p>
+						<h1 class="text-3xl font-semibold text-gray-900 tracking-tight">JSON to HTML/Markdown Converter</h1>
+						<p class="text-gray-500 mt-2 text-lg">Transform your JSON data into beautifully formatted HTML or Markdown</p>
 					</div>
-					<div class="flex items-center gap-2">
-						<button class="px-4 py-2 text-sm text-gray-600 hover:text-gray-900 transition-colors">
+					<div class="flex items-center gap-3">
+						<button class="px-4 py-2 text-sm text-gray-600 hover:text-gray-900 transition-colors rounded-full hover:bg-gray-50">
 							<font-awesome-icon :icon="['fas', 'star']" class="mr-1" />
 							Star
 						</button>
-						<button class="px-4 py-2 text-sm text-gray-600 hover:text-gray-900 transition-colors">
+						<button class="px-4 py-2 text-sm text-gray-600 hover:text-gray-900 transition-colors rounded-full hover:bg-gray-50">
 							<font-awesome-icon :icon="['fas', 'code-fork']" class="mr-1" />
 							Fork
 						</button>
@@ -51,12 +42,12 @@
 				<div class="flex gap-4">
 					<input
 						v-model="state.apiUrl"
-						class="flex-1 px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all text-sm"
+						class="flex-1 px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all text-sm bg-gray-50"
 						type="text"
 						placeholder="https://reqres.in/api/users?page=2"
 					/>
 					<button
-						class="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-all duration-200 text-sm font-medium flex items-center gap-2"
+						class="px-6 py-3 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition-all duration-200 text-sm font-medium flex items-center gap-2 shadow-sm"
 						@click="fetchData"
 					>
 						<font-awesome-icon :icon="['fas', 'download']" />
@@ -65,7 +56,7 @@
 				</div>
 
 				<p v-if="state.statusMessage" 
-					:class="['mt-4 px-4 py-2 rounded-md text-sm', 
+					:class="['mt-4 px-4 py-3 rounded-xl text-sm', 
 						state.statusMessage.includes('successfully') ? 'bg-green-50 text-green-700 border border-green-200' : 'bg-red-50 text-red-700 border border-red-200']">
 					{{ state.statusMessage }}
 				</p>
@@ -73,14 +64,14 @@
 
 			<div class="flex justify-end gap-4 mb-6">
 				<button
-					class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-all duration-200 text-sm font-medium flex items-center gap-2"
+					class="px-5 py-2.5 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition-all duration-200 text-sm font-medium flex items-center gap-2 shadow-sm"
 					@click="convertToHtml"
 				>
 					<font-awesome-icon :icon="['fas', 'code']" />
 					Convert to HTML
 				</button>
 				<button
-					class="px-4 py-2 bg-gray-700 text-white rounded-md hover:bg-gray-800 transition-all duration-200 text-sm font-medium flex items-center gap-2"
+					class="px-5 py-2.5 bg-gray-900 text-white rounded-xl hover:bg-gray-800 transition-all duration-200 text-sm font-medium flex items-center gap-2 shadow-sm"
 					@click="convertToMarkdown"
 				>
 					<font-awesome-icon :icon="['fas', 'markdown']" />
@@ -89,8 +80,8 @@
 			</div>
 
 			<div class="grid grid-cols-2 gap-6">
-				<div class="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
-					<div class="bg-gray-800 px-4 py-3 flex items-center justify-between border-b border-gray-700">
+				<div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+					<div class="bg-gray-900 px-4 py-3 flex items-center justify-between border-b border-gray-800">
 						<h2 class="text-sm font-medium text-white">JSON Editor</h2>
 						<div class="flex gap-2">
 							<div class="h-2.5 w-2.5 rounded-full bg-red-500"></div>
@@ -105,8 +96,8 @@
 					></textarea>
 				</div>
 
-				<div class="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
-					<div class="bg-gray-800 px-4 py-3 flex items-center justify-between border-b border-gray-700">
+				<div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+					<div class="bg-gray-900 px-4 py-3 flex items-center justify-between border-b border-gray-800">
 						<h2 class="text-sm font-medium text-white">Preview</h2>
 						<div class="flex gap-2">
 							<div class="h-2.5 w-2.5 rounded-full bg-red-500"></div>
