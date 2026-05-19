@@ -246,3 +246,9 @@ This project is open source and available under the [MIT License](LICENSE).
 Built with modern web technologies and inspired by developer-first design principles.
 
 **Made with ❤️ using Nuxt 3 & Vue 3**
+
+---
+
+## Maintenance
+
+Last maintenance update: <!--LAST_UPDATED-->2026-05-19<!--/LAST_UPDATED-->
