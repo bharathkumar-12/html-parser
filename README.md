@@ -252,3 +252,5 @@ Built with modern web technologies and inspired by developer-first design princi
 ## Maintenance
 
 Last maintenance update: <!--LAST_UPDATED-->2026-05-19<!--/LAST_UPDATED-->
+<!-- changelog:2026-05-31 -->
+<!-- Maintenance pass: 2026-05-31 -->
