@@ -84,7 +84,7 @@ A production-ready Nuxt 3 application that converts JSON data into structured HT
 - **Node.js** >= 18.x
 - **npm** / **pnpm** / **yarn** / **bun**
 
-### Installation
+### Setup
 
 ```bash
 # Clone the repository
